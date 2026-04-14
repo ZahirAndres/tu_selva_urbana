@@ -1,4 +1,5 @@
-﻿import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { adminAPI } from '../services/api';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState(null);
@@ -13,68 +14,24 @@ const AdminDashboard = () => {
         setLoading(true);
         setError(null);
         
-        // ≡ƒöÑ DEBUG: Verificar token en diferentes posibles nombres
-        const token = localStorage.getItem('tsu_token') || 
-                      localStorage.getItem('token') || 
-                      localStorage.getItem('authToken');
-        
-        console.log('≡ƒöì Token encontrado:', token ? 'Γ£à S├¡' : 'Γ¥î No');
-        console.log('≡ƒöì Token value:', token ? token.substring(0, 50) + '...' : 'null');
-        
-        // Obtener nombre del admin desde diferentes posibles keys
-        const userStr = localStorage.getItem('tsu_user') || 
-                        localStorage.getItem('user') ||
-                        localStorage.getItem('userData');
-        
+        const userStr = localStorage.getItem('tsu_user');
         if (userStr) {
           try {
             const userData = JSON.parse(userStr);
-            setAdminName(userData.name || userData.nombre || userData.username || 'Administrador');
+            setAdminName(userData.name || 'Administrador');
           } catch (e) {
             console.error('Error parsing user data:', e);
           }
         }
 
-        // Si no hay token, mostrar error claro
-        if (!token) {
-          throw new Error('No hay sesi├│n activa. Por favor, inicia sesi├│n como administrador.');
-        }
-
-        const response = await fetch('/api/admin/stats', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          }
-        });
-
-        console.log('≡ƒöì Response status:', response.status);
-
-        // Si es 401, el token es inv├ílido o expir├│
-        if (response.status === 401) {
-          throw new Error('Tu sesi├│n ha expirado. Por favor, inicia sesi├│n nuevamente.');
-        }
-
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(`Error ${response.status}: ${errorText || 'No autorizado'}`);
-        }
-
-        const contentType = response.headers.get("content-type");
-        if (!contentType || !contentType.includes("application/json")) {
-          throw new Error("El servidor no respondi├│ con JSON. Revisa la conexi├│n.");
-        }
-
-        const data = await response.json();
-        console.log('≡ƒôè Datos recibidos:', data);
+        const data = await adminAPI.getStats();
         setStats(data);
         setUsingMockData(false);
         
       } catch (err) {
-        console.error("Γ¥î Fallo en Dashboard:", err.message);
+        console.error("Error en Dashboard:", err.message);
         setError(err.message);
         
-        // Si hay error, usar datos de demostraci├│n para que se vea el dise├▒o
         setUsingMockData(true);
         setStats({
           totalUsers: 145,
@@ -98,17 +55,16 @@ const AdminDashboard = () => {
     </div>
   );
 
-  // Solo mostrar error si no hay datos y no estamos usando mock
   if (error && !usingMockData) return (
     <div className="bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded shadow-sm">
-      <p className="font-bold">ΓÜá∩╕Å Error de sincronizaci├│n</p>
+      <p className="font-bold">⚠️ Error de sincronización</p>
       <p className="text-sm">{error}</p>
       <div className="flex gap-3 mt-3">
         <button 
           onClick={() => window.location.reload()} 
           className="text-xs underline font-bold uppercase"
         >
-          Reintentar conexi├│n
+          Reintentar conexión
         </button>
         <button 
           onClick={() => {
@@ -117,33 +73,33 @@ const AdminDashboard = () => {
           }} 
           className="text-xs underline font-bold uppercase text-red-600"
         >
-          Cerrar sesi├│n
+          Cerrar sesión
         </button>
       </div>
     </div>
   );
 
   const cards = [
-    { title: 'Total Usuarios', value: stats?.totalUsers, icon: '≡ƒæÑ', color: 'bg-blue-500' },
-    { title: 'Total Pedidos', value: stats?.totalOrders, icon: '≡ƒôª', color: 'bg-green-500' },
-    { title: 'Pedidos Pendientes', value: stats?.pendingOrders, icon: 'ΓÅ│', color: 'bg-yellow-500' },
-    { title: 'Ingresos Totales', value: `$${stats?.totalRevenue?.toFixed(2) || 0}`, icon: '≡ƒÆ░', color: 'bg-emerald-600' },
-    { title: 'Total Plantas', value: stats?.totalPlants, icon: '≡ƒî┐', color: 'bg-lime-600' },
-    { title: 'Total Posts', value: stats?.totalPosts, icon: '≡ƒô¥', color: 'bg-purple-500' },
+    { title: 'Total Usuarios', value: stats?.totalUsers, icon: '👥', color: 'bg-blue-500' },
+    { title: 'Total Pedidos', value: stats?.totalOrders, icon: '📦', color: 'bg-green-500' },
+    { title: 'Pedidos Pendientes', value: stats?.pendingOrders, icon: '⏳', color: 'bg-yellow-500' },
+    { title: 'Ingresos Totales', value: `$${stats?.totalRevenue?.toFixed(2) || 0}`, icon: '💰', color: 'bg-emerald-600' },
+    { title: 'Total Plantas', value: stats?.totalPlants, icon: '🌿', color: 'bg-lime-600' },
+    { title: 'Total Posts', value: stats?.totalPosts, icon: '📝', color: 'bg-purple-500' },
   ];
 
   return (
     <div className="space-y-6">
-      {/* Aviso de datos de demostraci├│n */}
+      {/* Aviso de datos de demostración */}
       {usingMockData && (
         <div className="bg-yellow-50 border-l-4 border-yellow-500 text-yellow-700 px-4 py-3 rounded shadow-sm">
-          <p className="font-bold">≡ƒôè Datos de demostraci├│n</p>
+          <p className="font-bold">📊 Datos de demostración</p>
           <p className="text-sm">No se pudo conectar con el servidor. Mostrando datos de ejemplo.</p>
           <button 
             onClick={() => window.location.reload()} 
             className="mt-2 text-xs underline font-bold"
           >
-            Reintentar conexi├│n
+            Reintentar conexión
           </button>
         </div>
       )}
@@ -152,32 +108,32 @@ const AdminDashboard = () => {
       <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-100">
         <div className="flex items-start gap-4">
           <div className="bg-green-100 rounded-full p-3">
-            <span className="text-2xl">≡ƒî┐</span>
+            <span className="text-2xl">🌿</span>
           </div>
           <div className="flex-1">
             <h1 className="text-2xl font-bold text-gray-800">
-              ≡ƒæï ┬íHola, {adminName}!
+              👋 ¡Hola, {adminName}!
             </h1>
             <p className="text-gray-600 mt-1 max-w-2xl">
               Bienvenido al panel de control de <span className="font-semibold text-green-700">Tu Selva Urbana</span>. 
-              Desde aqu├¡ puedes gestionar el cat├ílogo de plantas, revisar los pedidos de los clientes, 
+              Desde aquí puedes gestionar el catálogo de plantas, revisar los pedidos de los clientes, 
               administrar los usuarios de la comunidad y dar de alta nuevas especies en el inventario.
             </p>
             <div className="flex flex-wrap gap-4 mt-4">
               <div className="flex items-center gap-2 text-sm text-gray-500">
-                <span>≡ƒôª</span>
+                <span>📦</span>
                 <span>Gestiona pedidos</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-gray-500">
-                <span>≡ƒî┐</span>
+                <span>🌿</span>
                 <span>Administra plantas</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-gray-500">
-                <span>≡ƒæÑ</span>
+                <span>👥</span>
                 <span>Controla usuarios</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-gray-500">
-                <span>≡ƒô¥</span>
+                <span>📝</span>
                 <span>Modera publicaciones</span>
               </div>
             </div>
@@ -185,7 +141,7 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* Tarjetas de m├⌐tricas */}
+      {/* Tarjetas de métricas */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {cards.map((card, index) => (
           <div key={index} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 transition-all hover:shadow-md hover:-translate-y-1">
@@ -205,8 +161,8 @@ const AdminDashboard = () => {
       {/* Mensaje de estado */}
       <div className="text-right">
         <p className="text-xs text-gray-400">
-          {usingMockData ? '≡ƒôè Datos de demostraci├│n - ' : ''}
-          ├Ültima actualizaci├│n: {new Date().toLocaleString()}
+          {usingMockData ? '📊 Datos de demostración - ' : ''}
+          Última actualización: {new Date().toLocaleString()}
         </p>
       </div>
     </div>

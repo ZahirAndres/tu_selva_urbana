@@ -1,10 +1,10 @@
-﻿import { useContext } from 'react';
+import { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import { GlobalContext } from '../context/GlobalContext';
 
 /**
  * Componente para proteger rutas de administrador.
- * Verifica autenticaci├│n Y que el rol sea "admin" o el usuario de pruebas.
+ * Verifica autenticación Y que el rol sea "admin" o el usuario de pruebas.
  */
 const AdminRoute = ({ children }) => {
     const { isAuthenticated, user, loading } = useContext(GlobalContext);
@@ -23,7 +23,7 @@ const AdminRoute = ({ children }) => {
         );
     }
 
-    // 2. Si no est├í logueado, al login
+    // 2. Si no está logueado, al login
     if (!isAuthenticated) {
         return <Navigate to="/login" replace />;
     }
@@ -34,7 +34,7 @@ const AdminRoute = ({ children }) => {
     const hasAdminRole = user?.role === 'admin';
 
     if (!isMasterAdmin && !hasAdminRole) {
-        console.warn("ΓÜá∩╕Å Intento de acceso no autorizado a ruta administrativa.");
+        console.warn("⚠️ Intento de acceso no autorizado a ruta administrativa.");
         return <Navigate to="/feed" replace />;
     }
 

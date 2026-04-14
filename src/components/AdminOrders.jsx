@@ -1,4 +1,5 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { adminAPI } from '../services/api';
 
 const AdminOrders = () => {
     const [orders, setOrders] = useState([]);
@@ -13,9 +14,7 @@ const AdminOrders = () => {
 
     const fetchOrders = async () => {
         try {
-            const res = await fetch('/api/admin/orders'); // Endpoint de tu backend en Railway
-            if (!res.ok) throw new Error('Error al obtener pedidos');
-            const data = await res.json();
+            const data = await adminAPI.getOrders();
             setOrders(data);
         } catch (err) {
             console.error(err);
@@ -26,23 +25,13 @@ const AdminOrders = () => {
 
     const handleStatusChange = async (orderId, newStatus) => {
         try {
-            const res = await fetch(`/api/admin/orders/${orderId}/status`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ status: newStatus }),
-            });
-
-            if (res.ok) {
-                // Actualizar estado localmente para reflejar el cambio inmediato
-                setOrders(orders.map(order => 
-                    order.id === orderId ? { ...order, status: newStatus } : order
-                ));
-                showNotification('Γ£à Estado actualizado con ├⌐xito', 'success');
-            } else {
-                throw new Error();
-            }
+            await adminAPI.updateOrderStatus(orderId, newStatus);
+            setOrders(orders.map(order => 
+                order.id === orderId ? { ...order, status: newStatus } : order
+            ));
+            showNotification('✅ Estado actualizado con éxito', 'success');
         } catch (err) {
-            showNotification('Γ¥î Error al actualizar el estado', 'error');
+            showNotification('❌ Error al actualizar el estado', 'error');
         }
     };
 
@@ -55,7 +44,7 @@ const AdminOrders = () => {
 
     return (
         <div className="relative bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-            {/* Notificaci├│n Flotante */}
+            {/* Notificación Flotante */}
             {notification && (
                 <div className={`fixed top-20 right-10 z-50 px-6 py-3 rounded-lg shadow-lg transition-all animate-bounce ${
                     notification.type === 'success' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
@@ -65,7 +54,7 @@ const AdminOrders = () => {
             )}
 
             <div className="p-6 border-b border-gray-100 bg-gray-50/50">
-                <h2 className="text-xl font-bold text-gray-800 font-mono italic text-green-900">Gesti├│n de Pedidos</h2>
+                <h2 className="text-xl font-bold text-gray-800 font-mono italic text-green-900">Gestión de Pedidos</h2>
             </div>
 
             <div className="overflow-x-auto">

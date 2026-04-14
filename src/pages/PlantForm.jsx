@@ -1,4 +1,4 @@
-﻿// src/pages/PlantForm.jsx - VERSI├ôN CORREGIDA (SOLO URL)
+// src/pages/PlantForm.jsx - VERSIÓN CORREGIDA (SOLO URL)
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Camera, Droplets, Sun, Wind, ChevronRight, Loader2, AlertCircle, Sparkles, Check, X, Link } from 'lucide-react';
@@ -33,7 +33,7 @@ const PlantForm = ({ initialData = null, onSuccess, onCancel, isEditing = false 
   const inputStyle = "w-full bg-white border-2 border-transparent focus:border-[#8BA888] rounded-3xl px-6 py-3 outline-none transition-all shadow-sm text-[#1B3022]";
   const labelStyle = "block text-[#1B3022] font-bold mb-2 ml-4 text-sm uppercase tracking-wider";
 
-  // Generar slug autom├íticamente desde el nombre
+  // Generar slug automáticamente desde el nombre
   useEffect(() => {
     if (formData.name) {
       const generatedSlug = formData.name
@@ -77,19 +77,19 @@ const PlantForm = ({ initialData = null, onSuccess, onCancel, isEditing = false 
     try {
       // Validaciones
       if (!formData.name.trim()) {
-        throw new Error('≡ƒî▒ El nombre de la planta es obligatorio');
+        throw new Error('🌱 El nombre de la planta es obligatorio');
       }
       if (!formData.price || formData.price <= 0) {
-        throw new Error('≡ƒÆ░ El precio debe ser mayor a 0');
+        throw new Error('💰 El precio debe ser mayor a 0');
       }
       if (!formData.imageUrl.trim()) {
-        throw new Error('≡ƒô╕ La URL de la imagen es obligatoria');
+        throw new Error('📸 La URL de la imagen es obligatoria');
       }
       if (!formData.imageUrl.match(/^https?:\/\/.+\.[a-z]{2,4}/i)) {
-        throw new Error('≡ƒöù Ingresa una URL v├ílida (https://...');
+        throw new Error('🔗 Ingresa una URL válida (https://...');
       }
       if (formData.light.length === 0) {
-        throw new Error('ΓÿÇ∩╕Å Selecciona al menos un tipo de luz');
+        throw new Error('☀️ Selecciona al menos un tipo de luz');
       }
 
       // Preparar datos para enviar al backend
@@ -127,7 +127,7 @@ const PlantForm = ({ initialData = null, onSuccess, onCancel, isEditing = false 
         setTimeout(() => {
           navigate('/catalogo', { 
             state: { 
-              message: `Γ£à ┬í${formData.name} ha sido publicada exitosamente!`,
+              message: `✅ ¡${formData.name} ha sido publicada exitosamente!`,
               plant: result.plant 
             } 
           });
@@ -139,9 +139,9 @@ const PlantForm = ({ initialData = null, onSuccess, onCancel, isEditing = false 
       let errorMessage = err.message;
       
       if (err.message.includes('slug') || err.message.includes('Unique')) {
-        errorMessage = 'ΓÜá∩╕Å Ya existe una planta con ese nombre. Usa otro nombre.';
+        errorMessage = '⚠️ Ya existe una planta con ese nombre. Usa otro nombre.';
       } else if (err.message.includes('P2002')) {
-        errorMessage = 'ΓÜá∩╕Å Esta planta ya est├í registrada en el cat├ílogo.';
+        errorMessage = '⚠️ Esta planta ya está registrada en el catálogo.';
       }
       
       setError(errorMessage);
@@ -150,7 +150,7 @@ const PlantForm = ({ initialData = null, onSuccess, onCancel, isEditing = false 
     }
   };
 
-  // Si hay ├⌐xito y estamos en modal
+  // Si hay éxito y estamos en modal
   if (success && onSuccess) {
     return (
       <div className="text-center py-12">
@@ -158,10 +158,10 @@ const PlantForm = ({ initialData = null, onSuccess, onCancel, isEditing = false 
           <Check size={32} className="text-green-600" />
         </div>
         <h3 className="text-xl font-bold text-[#1B3022] mb-2">
-          {isEditing ? '┬íPlanta Actualizada! Γ£¿' : '┬íPlanta Creada! ≡ƒÄë'}
+          {isEditing ? '¡Planta Actualizada! ✨' : '¡Planta Creada! 🎉'}
         </h3>
         <p className="text-gray-600 mb-4">
-          {formData.name} {isEditing ? 'se actualiz├│ correctamente' : 'se agreg├│ al cat├ílogo'}
+          {formData.name} {isEditing ? 'se actualizó correctamente' : 'se agregó al catálogo'}
         </p>
         <button
           onClick={onSuccess}
@@ -180,20 +180,20 @@ const PlantForm = ({ initialData = null, onSuccess, onCancel, isEditing = false 
         {!onCancel && (
           <header className="mb-10 text-center">
             <span className="bg-[#8BA888]/20 text-[#1B3022] px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 w-fit mx-auto">
-              <Sparkles size={14} /> {isEditing ? 'Editar Planta' : 'Nueva Publicaci├│n'}
+              <Sparkles size={14} /> {isEditing ? 'Editar Planta' : 'Nueva Publicación'}
             </span>
             <h1 className="text-4xl font-black text-[#1B3022] mt-4">
               {isEditing ? 'Editar Planta' : 'Vender una Planta'}
             </h1>
             <p className="text-[#1B3022]/60 mt-2 font-medium">
-              {isEditing ? 'Actualiza los detalles de la planta' : 'Completa los detalles para el Cat├ílogo Bot├ínico'}
+              {isEditing ? 'Actualiza los detalles de la planta' : 'Completa los detalles para el Catálogo Botánico'}
             </p>
           </header>
         )}
 
         {onCancel && (
           <h2 className="text-2xl font-bold text-[#1B3022] mb-6">
-            {isEditing ? 'Γ£Å∩╕Å Editar Planta' : '≡ƒî▒ Nueva Planta'}
+            {isEditing ? '✏️ Editar Planta' : '🌱 Nueva Planta'}
           </h2>
         )}
 
@@ -201,13 +201,13 @@ const PlantForm = ({ initialData = null, onSuccess, onCancel, isEditing = false 
           <div className="mb-6 bg-red-50 border border-red-200 rounded-2xl p-4 flex items-center gap-3">
             <AlertCircle className="text-red-500 flex-shrink-0" size={20} />
             <p className="text-red-700 text-sm flex-1">{error}</p>
-            <button onClick={() => setError(null)} className="text-red-400 hover:text-red-600">Γ£ò</button>
+            <button onClick={() => setError(null)} className="text-red-400 hover:text-red-600">✕</button>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-8">
           
-          {/* Secci├│n de Imagen - SOLO URL */}
+          {/* Sección de Imagen - SOLO URL */}
           <div className="relative w-full">
             <label className={labelStyle}>URL de la Imagen *</label>
             <div className="relative">
@@ -223,7 +223,7 @@ const PlantForm = ({ initialData = null, onSuccess, onCancel, isEditing = false 
               />
             </div>
             <p className="text-xs text-[#1B3022]/40 mt-1 ml-4">
-              Usa una URL de imagen v├ílida (Unsplash, Imgur, etc.)
+              Usa una URL de imagen válida (Unsplash, Imgur, etc.)
             </p>
           </div>
 
@@ -236,7 +236,7 @@ const PlantForm = ({ initialData = null, onSuccess, onCancel, isEditing = false 
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   e.target.src = 'https://via.placeholder.com/400x500?text=Error+de+URL';
-                  setError('Γ¥î La URL de la imagen no es v├ílida o no se puede cargar');
+                  setError('❌ La URL de la imagen no es válida o no se puede cargar');
                 }}
                 onLoad={() => setError(null)}
               />
@@ -293,9 +293,9 @@ const PlantForm = ({ initialData = null, onSuccess, onCancel, isEditing = false 
             <label className={labelStyle}>Nivel de Cuidado</label>
             <div className="flex gap-3 flex-wrap">
               {[
-                { value: 'facil', label: '≡ƒî▒ F├ícil', desc: 'Para principiantes' },
-                { value: 'normal', label: '≡ƒî┐ Normal', desc: 'Cuidado moderado' },
-                { value: 'experto', label: '≡ƒî╡ Experto', desc: 'Requiere atenci├│n' }
+                { value: 'facil', label: '🌱 Fácil', desc: 'Para principiantes' },
+                { value: 'normal', label: '🌿 Normal', desc: 'Cuidado moderado' },
+                { value: 'experto', label: '🌵 Experto', desc: 'Requiere atención' }
               ].map((level) => (
                 <button
                   key={level.value}
@@ -328,9 +328,9 @@ const PlantForm = ({ initialData = null, onSuccess, onCancel, isEditing = false 
                     : "bg-white border-transparent text-[#1B3022] hover:bg-[#8BA888]/10"
                   }`}
                 >
-                  {option === 'Poca' && '≡ƒîæ '}
-                  {option === 'Media' && '≡ƒîñ∩╕Å '}
-                  {option === 'Sol' && 'ΓÿÇ∩╕Å '}
+                  {option === 'Poca' && '🌑 '}
+                  {option === 'Media' && '🌤️ '}
+                  {option === 'Sol' && '☀️ '}
                   {option}
                 </button>
               ))}
@@ -340,7 +340,7 @@ const PlantForm = ({ initialData = null, onSuccess, onCancel, isEditing = false 
           {/* Tips de Cuidado */}
           <div className="bg-white/50 p-6 rounded-[35px] space-y-4">
             <h3 className="text-[#1B3022] font-black text-lg mb-4 flex items-center gap-2">
-              ≡ƒî┐ Gu├¡a de Cuidados (Opcional)
+              🌿 Guía de Cuidados (Opcional)
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="relative">
@@ -350,7 +350,7 @@ const PlantForm = ({ initialData = null, onSuccess, onCancel, isEditing = false 
                   name="careWater"
                   value={formData.careWater}
                   onChange={handleChange}
-                  placeholder="≡ƒÆº Riego (Ej: Cada 7 d├¡as)"
+                  placeholder="💧 Riego (Ej: Cada 7 días)"
                   className={`${inputStyle} pl-12 text-sm`} 
                 />
               </div>
@@ -361,7 +361,7 @@ const PlantForm = ({ initialData = null, onSuccess, onCancel, isEditing = false 
                   name="careLight"
                   value={formData.careLight}
                   onChange={handleChange}
-                  placeholder="ΓÿÇ∩╕Å Luz (Ej: Indirecta brillante)"
+                  placeholder="☀️ Luz (Ej: Indirecta brillante)"
                   className={`${inputStyle} pl-12 text-sm`} 
                 />
               </div>
@@ -372,7 +372,7 @@ const PlantForm = ({ initialData = null, onSuccess, onCancel, isEditing = false 
                   name="careHumidity"
                   value={formData.careHumidity}
                   onChange={handleChange}
-                  placeholder="≡ƒÆ¿ Humedad (Ej: 60-80%)"
+                  placeholder="💨 Humedad (Ej: 60-80%)"
                   className={`${inputStyle} pl-12 text-sm`} 
                 />
               </div>
@@ -382,7 +382,7 @@ const PlantForm = ({ initialData = null, onSuccess, onCancel, isEditing = false 
           {/* Tag y Modelo 3D */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className={labelStyle}>≡ƒÅ╖∩╕Å Tag (Opcional)</label>
+              <label className={labelStyle}>🏷️ Tag (Opcional)</label>
               <input 
                 type="text" 
                 name="tag"
@@ -393,7 +393,7 @@ const PlantForm = ({ initialData = null, onSuccess, onCancel, isEditing = false 
               />
             </div>
             <div>
-              <label className={labelStyle}>≡ƒÄ¿ Modelo 3D (Opcional)</label>
+              <label className={labelStyle}>🎨 Modelo 3D (Opcional)</label>
               <input 
                 type="url" 
                 name="modelUrl"
@@ -409,9 +409,9 @@ const PlantForm = ({ initialData = null, onSuccess, onCancel, isEditing = false 
           <div className="flex items-center justify-between bg-[#1B3022] p-6 rounded-[30px] text-white">
             <div>
               <p className="font-bold flex items-center gap-2">
-                ≡ƒÉ╛ Segura para mascotas
+                🐾 Segura para mascotas
               </p>
-              <p className="text-xs text-white/60">┬┐Es t├│xica si se ingiere?</p>
+              <p className="text-xs text-white/60">¿Es tóxica si se ingiere?</p>
             </div>
             <label className="relative inline-flex items-center cursor-pointer">
               <input 
@@ -439,7 +439,7 @@ const PlantForm = ({ initialData = null, onSuccess, onCancel, isEditing = false 
                 </>
               ) : (
                 <>
-                  {isEditing ? 'Γ£Å∩╕Å ACTUALIZAR PLANTA' : '≡ƒî┐ PUBLICAR PLANTA'}
+                  {isEditing ? '✏️ ACTUALIZAR PLANTA' : '🌿 PUBLICAR PLANTA'}
                   <ChevronRight size={20} />
                 </>
               )}

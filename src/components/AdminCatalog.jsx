@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { plantsAPI } from '../services/api';
 import PlantForm from '../pages/PlantForm';
 
@@ -10,7 +10,7 @@ const AdminCatalog = () => {
     const [currentPlant, setCurrentPlant] = useState(null);
     const [refreshKey, setRefreshKey] = useState(0);
 
-    // Cargar plantas usando plantsAPI (igual que el cat├ílogo de usuarios)
+    // Cargar plantas usando plantsAPI (igual que el catálogo de usuarios)
     useEffect(() => {
         fetchPlants();
     }, []);
@@ -19,25 +19,25 @@ const AdminCatalog = () => {
         setLoading(true);
         setError(null);
         try {
-            // Usar el mismo m├⌐todo que funciona en el cat├ílogo de usuarios
+            // Usar el mismo método que funciona en el catálogo de usuarios
             const data = await plantsAPI.getAll();
             console.log('Plantas cargadas en admin:', data);
             setPlants(Array.isArray(data) ? data : []);
         } catch (err) {
             console.error("Error al cargar plantas:", err);
-            setError(err.message || "Error al cargar el cat├ílogo");
+            setError(err.message || "Error al cargar el catálogo");
         } finally {
             setLoading(false);
         }
     };
 
     const handleDelete = async (id, plantName) => {
-        if (window.confirm(`┬┐Est├ís seguro de eliminar "${plantName}"?`)) {
+        if (window.confirm(`¿Estás seguro de eliminar "${plantName}"?`)) {
             try {
                 await plantsAPI.delete(id);
-                // Actualizar estado local despu├⌐s de eliminar
+                // Actualizar estado local después de eliminar
                 setPlants(prevPlants => prevPlants.filter(p => p.id !== id));
-                alert(`Γ£à "${plantName}" eliminada exitosamente`);
+                alert(`✅ "${plantName}" eliminada exitosamente`);
             } catch (err) {
                 console.error("Error al eliminar:", err);
                 alert(err.message || "Error al eliminar la planta");
@@ -64,8 +64,8 @@ const AdminCatalog = () => {
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                     <div>
-                        <h2 className="text-xl font-bold text-gray-800">Gesti├│n de Inventario</h2>
-                        <p className="text-sm text-gray-500 mt-1">Administra el cat├ílogo de plantas de Tu Selva Urbana</p>
+                        <h2 className="text-xl font-bold text-gray-800">Gestión de Inventario</h2>
+                        <p className="text-sm text-gray-500 mt-1">Administra el catálogo de plantas de Tu Selva Urbana</p>
                     </div>
                     <button 
                         onClick={() => openModal()}
@@ -76,7 +76,7 @@ const AdminCatalog = () => {
                 </div>
                 <div className="text-center p-10">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-700 mx-auto mb-4"></div>
-                    <p className="text-green-800 font-bold">Cargando cat├ílogo...</p>
+                    <p className="text-green-800 font-bold">Cargando catálogo...</p>
                 </div>
             </div>
         );
@@ -88,8 +88,8 @@ const AdminCatalog = () => {
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                     <div>
-                        <h2 className="text-xl font-bold text-gray-800">Gesti├│n de Inventario</h2>
-                        <p className="text-sm text-gray-500 mt-1">Administra el cat├ílogo de plantas de Tu Selva Urbana</p>
+                        <h2 className="text-xl font-bold text-gray-800">Gestión de Inventario</h2>
+                        <p className="text-sm text-gray-500 mt-1">Administra el catálogo de plantas de Tu Selva Urbana</p>
                     </div>
                     <button 
                         onClick={() => openModal()}
@@ -99,7 +99,7 @@ const AdminCatalog = () => {
                     </button>
                 </div>
                 <div className="text-center p-10">
-                    <p className="text-red-500 mb-4">Γ¥î Error: {error}</p>
+                    <p className="text-red-500 mb-4">❌ Error: {error}</p>
                     <button 
                         onClick={fetchPlants}
                         className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors"
@@ -115,8 +115,8 @@ const AdminCatalog = () => {
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                 <div>
-                    <h2 className="text-xl font-bold text-gray-800">Gesti├│n de Inventario</h2>
-                    <p className="text-sm text-gray-500 mt-1">Administra el cat├ílogo de plantas de Tu Selva Urbana</p>
+                    <h2 className="text-xl font-bold text-gray-800">Gestión de Inventario</h2>
+                    <p className="text-sm text-gray-500 mt-1">Administra el catálogo de plantas de Tu Selva Urbana</p>
                 </div>
                 <button 
                     onClick={() => openModal()}
@@ -143,7 +143,7 @@ const AdminCatalog = () => {
                         {plants.length === 0 ? (
                             <tr>
                                 <td colSpan="7" className="px-6 py-12 text-center text-gray-400">
-                                    ≡ƒî▒ No hay plantas en el cat├ílogo. ┬íCrea la primera!
+                                    🌱 No hay plantas en el catálogo. ¡Crea la primera!
                                  </td>
                             </tr>
                         ) : (
@@ -167,9 +167,9 @@ const AdminCatalog = () => {
                                             plant.careLevel === 'experto' ? 'bg-red-100 text-red-700' :
                                             'bg-yellow-100 text-yellow-700'
                                         }`}>
-                                            {plant.careLevel === 'facil' ? '≡ƒî▒ F├ícil' : 
-                                             plant.careLevel === 'experto' ? '≡ƒî╡ Experto' : 
-                                             '≡ƒî┐ Normal'}
+                                            {plant.careLevel === 'facil' ? '🌱 Fácil' : 
+                                             plant.careLevel === 'experto' ? '🌵 Experto' : 
+                                             '🌿 Normal'}
                                         </span>
                                     </td>
                                     <td className="px-6 py-4">
@@ -177,9 +177,9 @@ const AdminCatalog = () => {
                                             {plant.light && plant.light.length > 0 ? (
                                                 plant.light.map((l, i) => (
                                                     <span key={i} className="text-xs bg-gray-100 px-2 py-1 rounded-full">
-                                                        {l === 'Poca' && '≡ƒîæ '}
-                                                        {l === 'Media' && '≡ƒîñ∩╕Å '}
-                                                        {l === 'Sol' && 'ΓÿÇ∩╕Å '}
+                                                        {l === 'Poca' && '🌑 '}
+                                                        {l === 'Media' && '🌤️ '}
+                                                        {l === 'Sol' && '☀️ '}
                                                         {l}
                                                     </span>
                                                 ))
@@ -190,8 +190,8 @@ const AdminCatalog = () => {
                                     </td>
                                     <td className="px-6 py-4">
                                         {plant.petSafe ? 
-                                            <span className="text-green-600">Γ£à S├¡</span> : 
-                                            <span className="text-red-400">Γ¥î No</span>
+                                            <span className="text-green-600">✅ Sí</span> : 
+                                            <span className="text-red-400">❌ No</span>
                                         }
                                     </td>
                                     <td className="px-6 py-4">
@@ -201,14 +201,14 @@ const AdminCatalog = () => {
                                                 className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                                                 title="Editar"
                                             >
-                                                Γ£Å∩╕Å
+                                                ✏️
                                             </button>
                                             <button 
                                                 onClick={() => handleDelete(plant.id, plant.name)}
                                                 className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                                                 title="Eliminar"
                                             >
-                                                ≡ƒùæ∩╕Å
+                                                🗑️
                                             </button>
                                         </div>
                                     </td>
@@ -220,7 +220,7 @@ const AdminCatalog = () => {
             </div>
 
             <div className="p-4 border-t border-gray-100 bg-gray-50/30 text-sm text-gray-500">
-                Total: {plants.length} {plants.length === 1 ? 'planta' : 'plantas'} en el cat├ílogo
+                Total: {plants.length} {plants.length === 1 ? 'planta' : 'plantas'} en el catálogo
             </div>
 
             {/* Modal con PlantForm integrado */}
@@ -229,7 +229,7 @@ const AdminCatalog = () => {
                     <div className="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl relative">
                         <div className="sticky top-0 bg-white border-b border-gray-100 p-4 flex justify-between items-center z-10">
                             <h3 className="text-xl font-bold text-green-800">
-                                {currentPlant ? 'Γ£Å∩╕Å Editar Planta' : '≡ƒî▒ Agregar Nueva Planta'}
+                                {currentPlant ? '✏️ Editar Planta' : '🌱 Agregar Nueva Planta'}
                             </h3>
                             <button 
                                 onClick={() => {
@@ -238,7 +238,7 @@ const AdminCatalog = () => {
                                 }} 
                                 className="text-gray-400 hover:text-gray-600 text-2xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100"
                             >
-                                ├ù
+                                ×
                             </button>
                         </div>
                         <div className="p-6">

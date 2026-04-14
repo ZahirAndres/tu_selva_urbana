@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { adminAPI } from '../services/api';
+import axios from 'axios'; // O usa fetch si prefieres
 
 const UsersTable = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // 1. Cargar usuarios al montar el componente
   useEffect(() => {
     fetchUsers();
   }, []);
 
   const fetchUsers = async () => {
     try {
-      const data = await adminAPI.getUsers();
-      setUsers(Array.isArray(data) ? data : []);
+      const token = localStorage.getItem('token'); // Tu JWT
+      const response = await axios.get('http://localhost:3001/api/admin/users', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setUsers(response.data);
       setLoading(false);
     } catch (error) {
       console.error("Error al obtener usuarios:", error);
@@ -20,20 +24,33 @@ const UsersTable = () => {
     }
   };
 
+  // 2. Función para cambiar el rol (Toggle)
   const handleToggleRole = async (user) => {
     const newRole = user.role === 'admin' ? 'user' : 'admin';
     try {
-      await adminAPI.updateUserRole(user.id, newRole);
+      const token = localStorage.getItem('token');
+      await axios.put(`http://localhost:3001/api/admin/users/${user.id}/role`, 
+        { role: newRole },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      
+      // Actualizamos el estado local sin recargar la página
       setUsers(users.map(u => u.id === user.id ? { ...u, role: newRole } : u));
     } catch (error) {
       alert("Error al cambiar el rol");
     }
   };
 
+  // 3. Función para eliminar usuario
   const handleDeleteUser = async (id) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar este usuario? Esta acción no se puede deshacer.")) {
       try {
-        await adminAPI.deleteUser(id);
+        const token = localStorage.getItem('token');
+        await axios.delete(`http://localhost:3001/api/admin/users/${id}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        
+        // Filtramos el usuario eliminado del estado
         setUsers(users.filter(user => user.id !== id));
       } catch (error) {
         alert("Error al eliminar el usuario");

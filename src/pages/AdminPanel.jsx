@@ -1,27 +1,27 @@
-﻿import React, { useState } from 'react';
-import AdminDashboard from '../components/AdminDashboard'; // Γ£à Corregido: misma carpeta
+import React, { useState } from 'react';
+import AdminDashboard from '../components/AdminDashboard';
 import AdminCatalog from '../components/AdminCatalog';
 import AdminOrders from '../components/AdminOrders';
 import AdminUsers from '../components/AdminUsers';
 
 const AdminPanel = () => {
-    // Estado para controlar la navegaci├│n del panel
+    // Estado para controlar la navegacion del panel
     const [activeSection, setActiveSection] = useState('Dashboard');
 
-    // Items del men├║ lateral con sus IDs para vinculaci├│n l├│gica
+    // Items del menú lateral con sus IDs para vinculacion logica
     const menuItems = [
-        { id: 'dashboard', label: 'Dashboard', icon: '≡ƒôè' },
-        { id: 'pedidos', label: 'Pedidos', icon: '≡ƒôª' },
-        { id: 'usuarios', label: 'Usuarios', icon: '≡ƒæÑ' },
-        { id: 'catalogo', label: 'Cat├ílogo de Plantas', icon: '≡ƒî┐' },
+        { id: 'dashboard', label: 'Dashboard', icon: '📊' },
+        { id: 'pedidos', label: 'Pedidos', icon: '📦' },
+        { id: 'usuarios', label: 'Usuarios', icon: '👥' },
+        { id: 'catalogo', label: 'Catálogo de Plantas', icon: '🌿' },
     ];
 
-    // Funci├│n para renderizar el componente correcto seg├║n la secci├│n activa
+    // Funcion para renderizar el componente correcto segun la seccion activa
     const renderContent = () => {
         switch (activeSection) {
             case 'Dashboard':
                 return <AdminDashboard />;
-            case 'Cat├ílogo de Plantas':
+            case 'Catálogo de Plantas':
                 return <AdminCatalog />;
             case 'Pedidos':
                 return <AdminOrders />;
@@ -32,7 +32,7 @@ const AdminPanel = () => {
         }
     };
 
-    // Funci├│n para cerrar sesi├│n
+    // Funcion para cerrar sesión
     const handleLogout = () => {
         localStorage.removeItem('tsu_token');
         localStorage.removeItem('tsu_user');
@@ -41,13 +41,13 @@ const AdminPanel = () => {
 
     return (
         <div className="flex min-h-screen bg-[#f8faf8]">
-            {/* --- SIDEBAR (Men├║ Lateral) --- */}
+            {/* --- SIDEBAR (Menú Lateral) --- */}
             <aside className="w-20 md:w-64 bg-[#1a2e1a] text-white flex flex-col transition-all duration-300 shadow-2xl z-20">
                 <div className="p-6 text-center border-b border-white/10">
                     <h2 className="text-xl font-bold tracking-tighter hidden md:block text-green-400 uppercase">
                         TU SELVA <span className="text-white text-[10px] block font-light tracking-widest">ADMIN PANEL</span>
                     </h2>
-                    <span className="md:hidden text-2xl">≡ƒî┐</span>
+                    <span className="md:hidden text-2xl">🌱</span>
                 </div>
                 
                 <nav className="flex-1 mt-6">
@@ -77,13 +77,13 @@ const AdminPanel = () => {
                         onClick={handleLogout}
                         className="w-full flex items-center p-3 text-gray-400 hover:text-red-400 hover:bg-red-900/10 rounded-xl transition-all"
                     >
-                        <span className="text-xl w-8 flex justify-center">≡ƒÜ¬</span>
+                        <span className="text-xl w-8 flex justify-center">🚪</span>
                         <span className="ml-3 hidden md:block font-medium">Salir</span>
                     </button>
                 </div>
             </aside>
 
-            {/* --- ├üREA DE CONTENIDO --- */}
+            {/* --- ÁREA DE CONTENIDO --- */}
             <main className="flex-1 flex flex-col h-screen overflow-hidden">
                 {/* Header Superior */}
                 <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8 z-10 shadow-sm">
@@ -121,7 +121,7 @@ const AdminPanel = () => {
                                 </h1>
                                 <div className="h-1 w-12 bg-green-500 mt-2 rounded-full"></div>
                                 <p className="text-gray-500 font-medium mt-3">
-                                    Gesti├│n centralizada de <span className="text-green-700 font-bold italic">Tu Selva Urbana</span>.
+                                    Gestión centralizada de <span className="text-green-700 font-bold italic">Tu Selva Urbana</span>.
                                 </p>
                             </div>
                             <div className="text-[10px] bg-white px-3 py-1.5 rounded-full border border-gray-200 text-gray-400 font-mono shadow-sm flex items-center gap-2">
@@ -130,7 +130,7 @@ const AdminPanel = () => {
                             </div>
                         </header>
 
-                        {/* Renderizado din├ímico con animaci├│n suave */}
+                        {/* Renderizado dinámico con animación suave */}
                         <div className="animate-in fade-in slide-in-from-bottom-3 duration-700">
                             {renderContent()}
                         </div>

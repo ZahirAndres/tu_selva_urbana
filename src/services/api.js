@@ -113,7 +113,10 @@ export const usersAPI = {
 // ========== DASHBOARD / ADMIN ==========
 export const adminAPI = {
     getStats: () => request('/admin/stats'),
+    getOrders: () => request('/admin/orders'),
+    updateOrderStatus: (orderId, status) => request(`/admin/orders/${orderId}/status`, { method: 'PUT', body: JSON.stringify({ status }) }),
     getUsers: () => request('/admin/users'),
+    createUser: (userData) => request('/admin/users/create', { method: 'POST', body: JSON.stringify(userData) }),
     updateUserRole: (userId, role) => request(`/admin/users/${userId}/role`, { method: 'PUT', body: JSON.stringify({ role }) }),
     deleteUser: (userId) => request(`/admin/users/${userId}`, { method: 'DELETE' }),
     createPlant: (plantData) => request('/admin/plants', { method: 'POST', body: JSON.stringify(plantData) }),
