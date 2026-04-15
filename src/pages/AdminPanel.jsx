@@ -8,17 +8,17 @@ const AdminPanel = () => {
     const [activeSection, setActiveSection] = useState('Dashboard');
 
     const menuItems = [
-        { id: 'dashboard', label: 'Dashboard', icon: '\uD83D\uDCCA' },
-        { id: 'pedidos', label: 'Pedidos', icon: '\uD83D\uDCE6' },
-        { id: 'usuarios', label: 'Usuarios', icon: '\uD83D\uDC65' },
-        { id: 'catalogo', label: 'Cat\u00E1logo de Plantas', icon: '\uD83C\uDF3F' },
+        { id: 'dashboard', label: 'Dashboard', icon: '📊' },
+        { id: 'pedidos', label: 'Pedidos', icon: '📦' },
+        { id: 'usuarios', label: 'Usuarios', icon: '👥' },
+        { id: 'catalogo', label: 'Catálogo de Plantas', icon: '🌿' },
     ];
 
     const renderContent = () => {
         switch (activeSection) {
             case 'Dashboard':
                 return <AdminDashboard />;
-            case 'Cat\u00E1logo de Plantas':
+            case 'Catálogo de Plantas':
                 return <AdminCatalog />;
             case 'Pedidos':
                 return <AdminOrders />;
@@ -43,7 +43,7 @@ const AdminPanel = () => {
                     <h2 className="text-xl font-bold tracking-tighter hidden md:block text-green-400 uppercase">
                         TU SELVA <span className="text-white text-[10px] block font-light tracking-widest">ADMIN PANEL</span>
                     </h2>
-                    <span className="md:hidden text-2xl">\uD83C\uDF3F</span>
+                    <span className="md:hidden text-2xl">🌿</span>
                 </div>
                 
                 <nav className="flex-1 mt-6">
@@ -73,7 +73,7 @@ const AdminPanel = () => {
                         onClick={handleLogout}
                         className="w-full flex items-center p-3 text-gray-400 hover:text-red-400 hover:bg-red-900/10 rounded-xl transition-all"
                     >
-                        <span className="text-xl w-8 flex justify-center">\uD83D\uDEAA</span>
+                        <span className="text-xl w-8 flex justify-center">🚪</span>
                         <span className="ml-3 hidden md:block font-medium">Salir</span>
                     </button>
                 </div>
@@ -115,7 +115,7 @@ const AdminPanel = () => {
                                 </h1>
                                 <div className="h-1 w-12 bg-green-500 mt-2 rounded-full"></div>
                                 <p className="text-gray-500 font-medium mt-3">
-                                    Gesti\u00F3n centralizada de <span className="text-green-700 font-bold italic">Tu Selva Urbana</span>.
+                                    Gestión centralizada de <span className="text-green-700 font-bold italic">Tu Selva Urbana</span>.
                                 </p>
                             </div>
                             <div className="text-[10px] bg-white px-3 py-1.5 rounded-full border border-gray-200 text-gray-400 font-mono shadow-sm flex items-center gap-2">

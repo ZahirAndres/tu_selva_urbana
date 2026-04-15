@@ -29,9 +29,9 @@ const AdminOrders = () => {
             setOrders(orders.map(order => 
                 order.id === orderId ? { ...order, status: newStatus } : order
             ));
-            showNotification('\u2705 Estado actualizado con \u00E9xito', 'success');
+            showNotification('✅ Estado actualizado con éxito', 'success');
         } catch (err) {
-            showNotification('\u274C Error al actualizar el estado', 'error');
+            showNotification('❌ Error al actualizar el estado', 'error');
         }
     };
 
@@ -54,7 +54,7 @@ const AdminOrders = () => {
 
             <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                 <div>
-                    <h2 className="text-xl font-bold text-gray-800">Gesti\u00F3n de Pedidos</h2>
+                    <h2 className="text-xl font-bold text-gray-800">Gestión de Pedidos</h2>
                     <p className="text-sm text-gray-500 mt-1">Administra todas las compras realizadas por los clientes</p>
                 </div>
             </div>
@@ -74,7 +74,7 @@ const AdminOrders = () => {
                         {orders.length === 0 ? (
                             <tr>
                                 <td colSpan="5" className="px-6 py-12 text-center text-gray-400">
-                                    \uD83D\uDCE6 No hay pedidos registrados en el sistema.
+                                    📦 No hay pedidos registrados en el sistema.
                                  </td>
                             </tr>
                         ) : (

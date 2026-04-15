@@ -23,18 +23,18 @@ const AdminCatalog = () => {
             setPlants(Array.isArray(data) ? data : []);
         } catch (err) {
             console.error("Error al cargar plantas:", err);
-            setError(err.message || "Error al cargar el cat\u00E1logo");
+            setError(err.message || "Error al cargar el catálogo");
         } finally {
             setLoading(false);
         }
     };
 
     const handleDelete = async (id, plantName) => {
-        if (window.confirm(`\u00BFEst\u00E1s seguro de eliminar "${plantName}"?`)) {
+        if (window.confirm(`¿Estás seguro de eliminar "${plantName}"?`)) {
             try {
                 await plantsAPI.delete(id);
                 setPlants(prevPlants => prevPlants.filter(p => p.id !== id));
-                alert(`\u2705 "${plantName}" eliminada exitosamente`);
+                alert(`✅ "${plantName}" eliminada exitosamente`);
             } catch (err) {
                 console.error("Error al eliminar:", err);
                 alert(err.message || "Error al eliminar la planta");
@@ -59,8 +59,8 @@ const AdminCatalog = () => {
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                     <div>
-                        <h2 className="text-xl font-bold text-gray-800">Gesti\u00F3n de Inventario</h2>
-                        <p className="text-sm text-gray-500 mt-1">Administra el cat\u00E1logo de plantas de Tu Selva Urbana</p>
+                        <h2 className="text-xl font-bold text-gray-800">Gestión de Inventario</h2>
+                        <p className="text-sm text-gray-500 mt-1">Administra el catálogo de plantas de Tu Selva Urbana</p>
                     </div>
                     <button 
                         onClick={() => openModal()}
@@ -71,7 +71,7 @@ const AdminCatalog = () => {
                 </div>
                 <div className="text-center p-10">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-700 mx-auto mb-4"></div>
-                    <p className="text-green-800 font-bold">Cargando cat\u00E1logo...</p>
+                    <p className="text-green-800 font-bold">Cargando catálogo...</p>
                 </div>
             </div>
         );
@@ -82,8 +82,8 @@ const AdminCatalog = () => {
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                     <div>
-                        <h2 className="text-xl font-bold text-gray-800">Gesti\u00F3n de Inventario</h2>
-                        <p className="text-sm text-gray-500 mt-1">Administra el cat\u00E1logo de plantas de Tu Selva Urbana</p>
+                        <h2 className="text-xl font-bold text-gray-800">Gestión de Inventario</h2>
+                        <p className="text-sm text-gray-500 mt-1">Administra el catálogo de plantas de Tu Selva Urbana</p>
                     </div>
                     <button 
                         onClick={() => openModal()}
@@ -93,7 +93,7 @@ const AdminCatalog = () => {
                     </button>
                 </div>
                 <div className="text-center p-10">
-                    <p className="text-red-500 mb-4">\u274C Error: {error}</p>
+                    <p className="text-red-500 mb-4">❌ Error: {error}</p>
                     <button 
                         onClick={fetchPlants}
                         className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors"
@@ -109,8 +109,8 @@ const AdminCatalog = () => {
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                 <div>
-                    <h2 className="text-xl font-bold text-gray-800">Gesti\u00F3n de Inventario</h2>
-                    <p className="text-sm text-gray-500 mt-1">Administra el cat\u00E1logo de plantas de Tu Selva Urbana</p>
+                    <h2 className="text-xl font-bold text-gray-800">Gestión de Inventario</h2>
+                    <p className="text-sm text-gray-500 mt-1">Administra el catálogo de plantas de Tu Selva Urbana</p>
                 </div>
                 <button 
                     onClick={() => openModal()}
@@ -137,7 +137,7 @@ const AdminCatalog = () => {
                         {plants.length === 0 ? (
                             <tr>
                                 <td colSpan="7" className="px-6 py-12 text-center text-gray-400">
-                                    \uD83C\uDF31 No hay plantas en el cat\u00E1logo. \u00A1Crea la primera!
+                                    🌱 No hay plantas en el catálogo. ¡Crea la primera!
                                  </td>
                             </tr>
                         ) : (
@@ -161,9 +161,9 @@ const AdminCatalog = () => {
                                             plant.careLevel === 'experto' ? 'bg-red-100 text-red-700' :
                                             'bg-yellow-100 text-yellow-700'
                                         }`}>
-                                            {plant.careLevel === 'facil' ? '\uD83C\uDF31 F\u00E1cil' : 
-                                             plant.careLevel === 'experto' ? '\uD83C\uDF35 Experto' : 
-                                             '\uD83C\uDF3F Normal'}
+                                            {plant.careLevel === 'facil' ? '🌱 Fácil' : 
+                                             plant.careLevel === 'experto' ? '🌵 Experto' : 
+                                             '🌿 Normal'}
                                         </span>
                                     </td>
                                     <td className="px-6 py-4">
@@ -171,9 +171,9 @@ const AdminCatalog = () => {
                                             {plant.light && plant.light.length > 0 ? (
                                                 plant.light.map((l, i) => (
                                                     <span key={i} className="text-xs bg-gray-100 px-2 py-1 rounded-full">
-                                                        {l === 'Poca' && '\uD83C\uDF11 '}
-                                                        {l === 'Media' && '\uD83C\uDF24\uFE0F '}
-                                                        {l === 'Sol' && '\u2600\uFE0F '}
+                                                        {l === 'Poca' && '🌑 '}
+                                                        {l === 'Media' && '🌤️ '}
+                                                        {l === 'Sol' && '☀️ '}
                                                         {l}
                                                     </span>
                                                 ))
@@ -184,8 +184,8 @@ const AdminCatalog = () => {
                                     </td>
                                     <td className="px-6 py-4">
                                         {plant.petSafe ? 
-                                            <span className="text-green-600">\u2705 S\u00ED</span> : 
-                                            <span className="text-red-400">\u274C No</span>
+                                            <span className="text-green-600">✅ Sí</span> : 
+                                            <span className="text-red-400">❌ No</span>
                                         }
                                     </td>
                                     <td className="px-6 py-4">
@@ -195,14 +195,14 @@ const AdminCatalog = () => {
                                                 className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                                                 title="Editar"
                                             >
-                                                \u270F\uFE0F
+                                                ✏️
                                             </button>
                                             <button 
                                                 onClick={() => handleDelete(plant.id, plant.name)}
                                                 className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                                                 title="Eliminar"
                                             >
-                                                \uD83D\uDDD1\uFE0F
+                                                🗑️
                                             </button>
                                         </div>
                                     </td>
@@ -214,7 +214,7 @@ const AdminCatalog = () => {
             </div>
 
             <div className="p-4 border-t border-gray-100 bg-gray-50/30 text-sm text-gray-500">
-                Total: {plants.length} {plants.length === 1 ? 'planta' : 'plantas'} en el cat\u00E1logo
+                Total: {plants.length} {plants.length === 1 ? 'planta' : 'plantas'} en el catálogo
             </div>
 
             {isModalOpen && (
@@ -222,7 +222,7 @@ const AdminCatalog = () => {
                     <div className="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl relative">
                         <div className="sticky top-0 bg-white border-b border-gray-100 p-4 flex justify-between items-center z-10">
                             <h3 className="text-xl font-bold text-green-800">
-                                {currentPlant ? '\u270F\uFE0F Editar Planta' : '\uD83C\uDF31 Agregar Nueva Planta'}
+                                {currentPlant ? '✏️ Editar Planta' : '🌱 Agregar Nueva Planta'}
                             </h3>
                             <button 
                                 onClick={() => {
@@ -231,7 +231,7 @@ const AdminCatalog = () => {
                                 }} 
                                 className="text-gray-400 hover:text-gray-600 text-2xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100"
                             >
-                                \u00D7
+                                ×
                             </button>
                         </div>
                         <div className="p-6">
