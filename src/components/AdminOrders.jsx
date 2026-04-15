@@ -81,7 +81,7 @@ const AdminOrders = () => {
                             orders.map((order) => (
                                 <tr key={order.id} className="hover:bg-gray-50/50 transition-colors">
                                     <td className="px-6 py-4">
-                                        <p className="font-bold text-gray-800">#{order.id.slice(-6).toUpperCase()}</p>
+                                        <p className="font-bold text-gray-800">#{String(order.id).slice(-6).toUpperCase()}</p>
                                         <p className="text-xs text-gray-500">{new Date(order.createdAt).toLocaleDateString()}</p>
                                     </td>
                                     <td className="px-6 py-4">

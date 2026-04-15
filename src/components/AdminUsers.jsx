@@ -253,7 +253,7 @@ const AdminUsers = () => {
                                         </div>
                                         <div>
                                             <p className="font-bold text-gray-800">{user.name}</p>
-                                            <p className="text-xs text-gray-400">ID: {user.id.slice(-5)}</p>
+                                            <p className="text-xs text-gray-400">ID: {String(user.id).slice(-5)}</p>
                                         </div>
                                     </div>
                                 </td>
