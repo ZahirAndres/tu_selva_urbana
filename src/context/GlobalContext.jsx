@@ -57,8 +57,14 @@ export const GlobalProvider = ({ children }) => {
 
     const logout = () => {
         setUser(null);
+        setQuizAnswers(null);
+        setRecommendations([]);
+        setCart([]);
         localStorage.removeItem('tsu_user');
         localStorage.removeItem('tsu_token');
+        localStorage.removeItem('tsu_quiz_answers');
+        localStorage.removeItem('tsu_recommendations');
+        localStorage.removeItem('tsu_cart');
         window.location.href = '/login';
     };
 

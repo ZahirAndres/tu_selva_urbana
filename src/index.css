@@ -28,6 +28,12 @@
     }
 }
 
+/* Ocultar el ícono de ojo por defecto en Microsoft Edge/IE */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
 /* Fix model-viewer default behavior */
 model-viewer {
     width: 100%;
